@@ -18,7 +18,7 @@ pipeline {
             steps {
                 echo 'Deploying....'
                 sh 'docker-compose up -d'
-                sh 'docker-compose run app ls -l'
+                sh 'docker-compose run app chmod 777 composer.lock'
                 sh 'docker-compose run app rm -rf vendor composer.lock'
                 sh 'docker-compose run app composer install'
                 sh 'docker-compose run app php artisan key:generate'
