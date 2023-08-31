@@ -18,6 +18,7 @@ pipeline {
             steps {
                 echo 'Deploying....'
                 sh 'docker-compose up -d'
+                sh 'docker-compose run app ls -l'
                 sh 'sh docker-compose exec app chmod 777 /var/www/composer.lock'
                 sh 'docker-compose run app rm -rf vendor composer.lock'
                 sh 'docker-compose run app composer install'
