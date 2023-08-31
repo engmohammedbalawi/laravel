@@ -20,6 +20,7 @@ pipeline {
                 echo 'Deploying....'
                
                 sh 'docker-compose up -d'  // Use the sh step to execute the shell command
+                sh 'docker-compose exec app ls -l'
                 sh 'docker-compose exec app rm -rf vendor composer.lock'
                 sh 'docker-compose exec app composer install'
                 sh  'docker-compose exec app php artisan key:generate'
