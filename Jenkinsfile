@@ -11,20 +11,17 @@ pipeline {
         stage('Test') {
             steps {
                 echo 'Testing..'
-                 sh 'docker-compose build app'
-                
+                sh 'docker-compose build app'
             }
         }
         stage('Deploy') {
             steps {
                 echo 'Deploying....'
-               
-                sh 'docker-compose up -d'  // Use the sh step to execute the shell command
-                sh 'docker-compose exec app ls -l'
-                sh 'docker-compose exec app rm -rf vendor composer.lock'
-                sh 'docker-compose exec app composer install'
-                sh  'docker-compose exec app php artisan key:generate'
-
+                sh 'docker-compose up -d'
+                sh 'docker-compose run app ls -l'
+                sh 'docker-compose run app rm -rf vendor composer.lock'
+                sh 'docker-compose run app composer install'
+                sh 'docker-compose run app php artisan key:generate'
             }
         }
     }
