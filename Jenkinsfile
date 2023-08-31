@@ -19,7 +19,7 @@ pipeline {
                 echo 'Deploying....'
                 sh 'docker-compose up -d'
                 sh 'docker-compose run app ls -l'
-                sh 'sh docker-compose exec app chmod 777 /var/www/composer.lock'
+               sh 'docker-compose exec app chown $UID:$GID /var/www/composer.lock'
                 sh 'docker-compose run app rm -rf vendor composer.lock'
                 sh 'docker-compose run app composer install'
                 sh 'docker-compose run app php artisan key:generate'
