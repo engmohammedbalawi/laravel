@@ -19,9 +19,9 @@ pipeline {
                 echo 'Deploying....'
                 sh 'docker-compose up -d'
                 sh 'docker-compose run app ls -l'
-                sh 'chown celia:celia composer.lock'
-               sh 'docker-compose run app chown $UID:$GID /var/www/composer.lock'
-                sh 'docker-compose run app rm -rf vendor composer.lock'
+                sh ' sudo chown celia:celia composer.lock'
+               sh 'docker-compose run app  sudo chown $UID:$GID /var/www/composer.lock'
+                sh 'docker-compose run app sudo rm -rf vendor composer.lock'
                 sh 'docker-compose run app composer install'
                 sh 'docker-compose run app php artisan key:generate'
             }
